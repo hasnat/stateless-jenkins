@@ -14,11 +14,16 @@ If we use Dockerfile we'd be installing (extra + required) plugins on build stag
 
 # env vars
 
-We have all default jenkins/jenkins env vars +
+We have all default jenkins/jenkins env vars
+
+AND 
 
 `PROJECT_GIT` specify a project git repo which would be added to jenkins automatically from `init.d/job.groovy` (optional)
+
 `PROJECT_NAME` project name (optional) default=Project Name if `PROJECT_GIT` specified
+
 `PROJECT_BUILD` if true jenkins will load project branches and build automatically
+
 `PROJECT_PLUGINS` any extra plugins to be installed on jenkins init
 
 example
