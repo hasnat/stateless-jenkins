@@ -1,0 +1,26 @@
+#!groovy
+currentBuild.description = "${params.env == 'production' ? '🎩' : '🧢'} env=${params.env}"
+
+pipeline {
+
+    agent any
+    parameters {
+        choice(
+                name: 'env',
+                choices: "staging\nproduction",
+                description: 'Deploy to environment'
+        )
+    }
+    environment {
+        ENV_NAME = "${params.env}"
+        MAIN_WORKSPACE="${WORKSPACE}"
+    }
+    stages {
+        stage('Build') {
+            steps {
+                echo "done ${params.env} ${MAIN_WORKSPACE} ${ENV_NAME}"
+            }
+        }
+    }
+
+}

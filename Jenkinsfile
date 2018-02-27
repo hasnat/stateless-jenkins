@@ -6,14 +6,12 @@ node {
             string(
                 defaultValue: '0.9',
                 description: 'Env',
-                env : 'version'
+                name : 'env'
             )
         ]),
         pipelineTriggers([])
     ])
     stage('Build') {
-        withEnv(["versinn=${version}"]) {
-            echo "done ${params.env}"
-        }
+        echo "done ${params.env}"
     }
 }
