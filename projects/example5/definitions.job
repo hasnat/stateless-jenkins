@@ -1,0 +1,5 @@
+def hello(whom) {
+    echo "Hello ${whom}"
+}
+
+return this;

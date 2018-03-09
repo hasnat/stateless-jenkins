@@ -37,4 +37,29 @@ example
 
 # why
 
-So we're not depending on one jenkins, jenkins home don't matter, no back ups needed for jenkins.
+So we're not depending on one jenkins, jenkins home don't matter, no back ups needed for jenkins, testing jobs...
+
+
+# linting
+We're using https://github.com/miyajan/jflint 
+
+for this repo we can use
+```
+jflint --csrf-disabled ./Jenkinsfile
+``` 
+
+
+# run examples
+Use following to listen changes on playground and run build in local jenkins
+```
+cd projects/playground
+npm install -g watch
+watch "clear && git add . && git commit --amend <<< :wq && jflint --csrf-disabled ./Jenkinsfile" . -d
+```
+
+
+References:
+https://github.com/jenkinsci/pipeline-model-definition-plugin/wiki/getting-started
+https://github.com/jenkinsci/pipeline-plugin/blob/master/COMPATIBILITY.md
+https://jenkins.io
+

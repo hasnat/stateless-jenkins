@@ -1,13 +1,24 @@
 #!groovy
 
+def jobDefinitions
+
+node {
+    jobDefinitions = load 'definitions.job'
+    dir('pipelines')
+    {
+        git url: 'https://github.com/hasnat/stateless-jenkins.git'
+    }
+    def pipeline = load PIPELINE_FILE
+
+
+    //Setup the pipeline and execute all the stages
+    pipeline.setUp()
+    externalJobDefinition = './pipelines/common.groovy'
+}
+
 pipeline {
 
-    agent {
-        docker {
-            image 'node:6'
-            args '-v $HOME:/app'
-        }
-    }
+    agent any
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
     }
@@ -16,9 +27,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "done ${params.env}"
+                jobDefinitions.hello(params.PERSON)
+                externalJobDefinition.hello()
+                hello_same_file('hi')
             }
         }
     }
 
+}
+
+
+def hello_same_file(whom) {
+    echo "Hello ${whom}"
 }

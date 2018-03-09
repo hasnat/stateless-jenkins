@@ -5,13 +5,15 @@ def logger = Logger.getLogger("")
 def installed = false
 def initialized = false
 def extraPlugins = System.getenv("JENKINS_PLUGINS") ?: ""
-def defaultPlugins="git \
+def defaultPlugins = "git \
 pipeline-multibranch-defaults \
-workflow-aggregator workflow-multibranch \
+workflow-aggregator \
+workflow-multibranch \
 pipeline-aggregator-view \
 workflow-durable-task-step \
 workflow-basic-steps \
-pipeline-stage-step"
+pipeline-stage-step \
+rebuild"
 def plugins = (defaultPlugins + ' ' + extraPlugins).split()
 logger.info("" + plugins)
 def instance = Jenkins.getInstance()

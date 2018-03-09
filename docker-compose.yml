@@ -2,9 +2,9 @@ version: '2'
 services:
   stateless-jenkins:
     container_name: stateless-jenkins
-    image: jenkins/jenkins:lts
+#    image: jenkins/jenkins:lts
 # Comment image line and uncomment build line to use Dockerfile
-#    build: .
+    build: .
     environment:
       - "JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Djava.awt.headless=true"
       - "PROJECT_GIT=https://github.com/hasnat/stateless-jenkins.git"
@@ -15,6 +15,5 @@ services:
       - "8080:8080"
     volumes:
       #- "./.ssh:/var/jenkins_home/.ssh:ro"
-      - "./init.d/unsecure.groovy:/usr/share/jenkins/ref/init.groovy.d/a.unsecure.groovy"
-      - "./init.d/plugins.groovy:/usr/share/jenkins/ref/init.groovy.d/b.plugins.groovy"
-      - "./init.d/job.groovy:/usr/share/jenkins/ref/init.groovy.d/c.job.groovy"
+      - "./projects:/usr/local/jenkins-projects"
+      - "./init.d:/usr/share/jenkins/ref/init.groovy.d"

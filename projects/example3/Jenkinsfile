@@ -1,5 +1,5 @@
 #!groovy
-
+currentBuild.description = "🎩🧢"
 pipeline {
 
     agent any
@@ -10,13 +10,13 @@ pipeline {
             parallel {
                 stage("test-front-end") {
                     // cannot have parallel within parallel
-                    agent { label 'node' }
+//                    agent { label 'node' }
                     steps {
                         echo "TESTING front-end"
                     }
                 }
                 stage("test-back-end") {
-                    agent { label 'java' }
+//                    agent { label 'java' }
                     steps {
                         echo "TESTING back-end"
                     }

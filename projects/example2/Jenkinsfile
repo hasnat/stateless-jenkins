@@ -21,6 +21,23 @@ pipeline {
                 echo "done ${params.env} ${MAIN_WORKSPACE} ${ENV_NAME}"
             }
         }
+        stage('Deploy') {
+            when {
+                not {
+                    anyOf {
+                        branch 'master'
+                        branch 'release/*'
+                        changeset 'src/**/*'
+                    }
+                }
+            }
+            agent {
+                label: 'deployer'
+            }
+            steps {
+                echo "deploying ${params.env} ${MAIN_WORKSPACE} ${ENV_NAME}"
+            }
+        }
     }
 
 }
