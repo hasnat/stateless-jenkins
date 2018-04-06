@@ -53,6 +53,7 @@ jflint --csrf-disabled ./Jenkinsfile
 Use following to listen changes on playground and run build in local jenkins
 ```
 cd projects/playground
+git init
 npm install -g watch
 watch "clear && git add . && git commit --amend <<< :wq && jflint --csrf-disabled ./Jenkinsfile" . -d
 ```
