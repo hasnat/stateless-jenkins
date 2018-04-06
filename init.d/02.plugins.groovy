@@ -6,6 +6,7 @@ def installed = false
 def initialized = false
 def extraPlugins = System.getenv("JENKINS_PLUGINS") ?: ""
 def defaultPlugins = "git \
+blueocean \
 pipeline-multibranch-defaults \
 workflow-aggregator \
 workflow-multibranch \

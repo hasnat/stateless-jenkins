@@ -6,6 +6,7 @@ FROM jenkins/jenkins:lts
 #USER jenkins
 
 RUN /usr/local/bin/install-plugins.sh git \
+    blueocean \
     pipeline-multibranch-defaults \
     workflow-aggregator \
     workflow-multibranch \
