@@ -1,12 +1,16 @@
 version: '2'
 services:
-  stateless-jenkins:
-    container_name: stateless-jenkins
+
+  jenkins-master:
+    container_name: jenkins-master
+    hostname: jenkins-master
+# We can use jenkins image staright and it would result the same but its better to cache plugin install from Dockerfile
 #    image: jenkins/jenkins:lts
-# Comment image line and uncomment build line to use Dockerfile
-    build: .
+
+    build: ./jenkins-master
     environment:
-      - "JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Djava.awt.headless=true"
+      - "JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Djava.awt.headless=true -Djenkins.slaves.DefaultJnlpSlaveReceiver.disableStrictVerification=true"
+      - "JNLP_PROTOCOL_OPTS=-Dorg.jenkinsci.remoting.engine.JnlpProtocol3.disabled=false"
       - "PROJECT_GIT=https://github.com/hasnat/stateless-jenkins.git"
       - "PROJECT_NAME=Stateless Jenkins"
       - "PROJECT_BUILD=true"
@@ -15,5 +19,22 @@ services:
       - "8080:8080"
     volumes:
       #- "./.ssh:/var/jenkins_home/.ssh:ro"
+      - "./projects:/usr/local/jenkins-projects"
+      - "./init.d:/usr/share/jenkins/ref/init.groovy.d"
+
+  jenkins-slave:
+    container_name: jenkins-slave
+    hostname: jenkins-slave
+    build: ./jenkins-slave
+    privileged: true
+    restart: on-failure
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_NAME=docker-agent
+      # secret is obtained via jenkins script console `jenkins.slaves.JnlpSlaveAgentProtocol.SLAVE_SECRET.mac("docker-agent")`
+      - JENKINS_SECRET=ebbafa5880ba2aa76e78c7d3ab6c0cfab1225b453df4584df98beddb2d9a69e4
+      - JNLP_PROTOCOL_OPTS=-Dorg.jenkinsci.remoting.engine.JnlpProtocol3.disabled=false
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
       - "./projects:/usr/local/jenkins-projects"
       - "./init.d:/usr/share/jenkins/ref/init.groovy.d"
