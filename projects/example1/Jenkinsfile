@@ -10,15 +10,17 @@ pipeline {
                 sh 'echo step1'
                 sh 'echo step2'
                 sh '''
-                echo 'Multiline'
-                echo 'Example'
-             '''
+                    echo 'Multiline'
+                    echo 'Example'
+                '''
                 echo 'not using shell'
             }
         }
         stage('test') {
             steps {
-                sh 'fail me please'
+                //uncomment next line to fail the test stage
+                //sh 'fail me please'
+                echo 'Tests ok'
             }
 
             post {
