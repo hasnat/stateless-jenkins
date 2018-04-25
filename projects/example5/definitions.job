@@ -1,5 +1,5 @@
-def hello(whom) {
-    echo "Hello ${whom}"
+def hello_local(whom) {
+    echo "Hello ${whom} (from hello_local)"
 }
 
 return this;

@@ -1,20 +1,15 @@
 #!groovy
 
-def jobDefinitions
 
-node {
-    jobDefinitions = load 'definitions.job'
-    dir('pipelines')
-    {
-        git url: 'https://github.com/hasnat/stateless-jenkins.git'
-    }
-    def pipeline = load PIPELINE_FILE
-
-
-    //Setup the pipeline and execute all the stages
-    pipeline.setUp()
-    externalJobDefinition = './pipelines/common.groovy'
-}
+//Can be used like this OR in script of steps
+//node {
+//    jobDefinitions = load './definitions.job'
+//    dir('./pipelines')
+//    {
+//        git url: 'https://github.com/hasnat/stateless-jenkins.git'
+//    }
+//    externalJobDefinition = load './pipelines/commons/common.groovy'
+//}
 
 pipeline {
 
@@ -27,9 +22,21 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                jobDefinitions.hello(params.PERSON)
-                externalJobDefinition.hello()
-                hello_same_file('hi')
+                script {
+                    jobDefinitions = load './definitions.job'
+                    dir('pipelines')
+                    {
+                        git url: 'https://github.com/hasnat/stateless-jenkins.git'
+                    }
+
+                    externalJobDefinition = load 'pipelines/commons/common.groovy'
+                }
+                script {
+                    jobDefinitions.hello_local(params.PERSON)
+                    externalJobDefinition.hello(params.PERSON)
+                    hello_same_file('hi')
+
+                }
             }
         }
     }
@@ -38,5 +45,5 @@ pipeline {
 
 
 def hello_same_file(whom) {
-    echo "Hello ${whom}"
+    echo "Hello ${whom} (from hello_same_file)"
 }
