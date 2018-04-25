@@ -32,7 +32,7 @@ pipeline {
                 }
             }
             agent {
-                label: 'deployer'
+                label 'docker-agent'
             }
             steps {
                 echo "deploying ${params.env} ${MAIN_WORKSPACE} ${ENV_NAME}"

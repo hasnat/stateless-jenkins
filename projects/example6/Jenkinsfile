@@ -6,13 +6,16 @@ pipeline {
 
     stages {
         //.. build test
-        timeout(time: 40, unit: 'MINUTES') {
-            input message: 'Deploy to production?', ok: 'YES'
-            node {
-                echo 'deploy'
+        stage ('check') {
+            steps {
+                timeout(time: 40, unit: 'MINUTES') {
+                    input message: 'Deploy to production?', ok: 'YES'
+                    script {
+                        echo 'deploy'
+                    }
+                }
             }
         }
-
 
     }
 

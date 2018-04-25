@@ -4,6 +4,7 @@ pipeline {
 
     agent {
         docker {
+            label 'docker-agent'
             image 'node:6'
             args '-v $HOME:/app'
         }
@@ -16,7 +17,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "done ${params.env}"
+                sh "hostname"
+                echo "Hello from docker-container ${params.PERSON}"
             }
         }
     }
