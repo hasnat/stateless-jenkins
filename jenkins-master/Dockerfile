@@ -14,4 +14,5 @@ RUN /usr/local/bin/install-plugins.sh git \
     workflow-durable-task-step \
     workflow-basic-steps \
     pipeline-stage-step \
+    generic-webhook-trigger \
     rebuild

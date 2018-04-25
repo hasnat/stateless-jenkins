@@ -14,6 +14,7 @@ pipeline-aggregator-view \
 workflow-durable-task-step \
 workflow-basic-steps \
 pipeline-stage-step \
+generic-webhook-trigger \
 rebuild"
 def plugins = (defaultPlugins + ' ' + extraPlugins).split()
 logger.info("" + plugins)
