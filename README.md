@@ -62,7 +62,10 @@ watch "clear && git add . && git commit --amend <<< :wq && jflint --csrf-disable
 
 
 References:
+
 https://github.com/jenkinsci/pipeline-model-definition-plugin/wiki/getting-started
+
 https://github.com/jenkinsci/pipeline-plugin/blob/master/COMPATIBILITY.md
+
 https://jenkins.io
 

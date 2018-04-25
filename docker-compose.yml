@@ -20,7 +20,7 @@ services:
     volumes:
       #- "./.ssh:/var/jenkins_home/.ssh:ro"
       - "./projects:/usr/local/jenkins-projects"
-      - "./jenkins-slave-secret/secret:/var/jenkins_home/jenkins_slave_generated_secret"
+      - "./jenkins-slave-secret:/var/jenkins_secrets"
       - "./init.d:/usr/share/jenkins/ref/init.groovy.d"
 
   jenkins-slave:
@@ -28,17 +28,14 @@ services:
     hostname: jenkins-slave
     build: ./jenkins-slave
     privileged: true
-    restart: on-failure
+    restart: always
     environment:
       - JENKINS_URL=http://jenkins-master:8080
       - JENKINS_NAME=docker-agent
-      # secret is obtained via jenkins script console `jenkins.slaves.JnlpSlaveAgentProtocol.SLAVE_SECRET.mac("docker-agent")`
-      # - JENKINS_SECRET=this_is_moved_to_env_file---jenkins-slave-secret-secret
+      #- JENKINS_SECRET=this_is_moved_to_entrypoint
       - JNLP_PROTOCOL_OPTS=-Dorg.jenkinsci.remoting.engine.JnlpProtocol3.disabled=false
-    env_file:
-      - ./jenkins-slave-secret/secret
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./projects:/usr/local/jenkins-projects"
-#      - "./jenkins-slave-secret/secret:/etc/profile.d/jenkins_slave_generated_secret"
+      - "./jenkins-slave-secret:/var/jenkins_secrets"
       - "./init.d:/usr/share/jenkins/ref/init.groovy.d"
