@@ -22,4 +22,8 @@ agent.getNodeProperties().add(envPro)
 
 Jenkins.instance.addNode(agent)
 
+(new File("/var/jenkins_home/jenkins_slave_generated_secret")).newWriter().withWriter { w ->
+    w << "JENKINS_SECRET=" + jenkins.slaves.JnlpSlaveAgentProtocol.SLAVE_SECRET.mac(agent.labelString)
+}
+
 println "Node docker-agent has been created successfully."
