@@ -1,3 +1,11 @@
+/*
+
+
+Adds PROJECT_GIT git repo as multibranch pipeline job
+
+
+ */
+
 import jenkins.model.*
 import hudson.security.*
 import hudson.tasks.*

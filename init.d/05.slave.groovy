@@ -1,3 +1,13 @@
+/*
+
+
+Adds a slave to master jenkins
+master also generates a key for slave to use
+slave/master are using same docker volume to share the key
+
+
+ */
+
 import hudson.model.*
 import jenkins.model.*
 import hudson.slaves.*

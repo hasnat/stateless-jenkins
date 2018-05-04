@@ -1,4 +1,11 @@
 #!/usr/bin/env groovy
+/*
+
+
+This makes local jenkins password less
+
+
+ */
 import jenkins.model.*
 import hudson.security.AuthorizationStrategy
 

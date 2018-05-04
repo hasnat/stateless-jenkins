@@ -1,3 +1,11 @@
+/*
+
+
+Adds examples folders as simple pipeline jobs
+
+
+ */
+
 import jenkins.model.*
 import hudson.security.*
 import hudson.tasks.*

@@ -1,4 +1,11 @@
 #!/usr/bin/env groovy
+/*
+
+
+Installs all the required/extra plugins
+
+
+ */
 import jenkins.model.*
 import java.util.logging.Logger
 def logger = Logger.getLogger("")
