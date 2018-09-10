@@ -60,6 +60,13 @@ npm install -g watch
 watch "clear && git add . && git commit --amend <<< :wq && jflint --csrf-disabled ./Jenkinsfile" . -d
 ```
 
+# add your project
+in docker-compose file mount your project directory to show up as project, add it to master and slave if working with slave
+making changes to this would force docker-compose to recreate jenkins containers
+```
+volumes:
+  - "/path/to/your/project/on/host/some-project-name:/usr/local/jenkins-projects/some-project-name"
+```
 
 References:
 
